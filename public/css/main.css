@@ -1,0 +1,27 @@
+ul.globalErrors {
+    list-style: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9000;
+    width: 100%;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 25px;
+    background-color: red;
+}
+
+ul.globalSuccess {
+    list-style: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9000;
+    width: 100%;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 25px;
+    background-color: rgb(255, 87, 0);
+}
