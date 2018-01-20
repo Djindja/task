@@ -1,4 +1,4 @@
-@extends("includes.master")
+@extends("admin.includes.master")
 
 @section('title', Lang::get('titles.welcome'))
 

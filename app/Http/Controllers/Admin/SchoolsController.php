@@ -10,124 +10,111 @@ use Hash;
 use Request;
 use Response;
 use Validator;
-use App\Models\PortalUsers;
+use App\Models\School;
 
 class SchoolsController extends Controller
 {
     /**
-   * Index page for users
+   * Index page for schools
    * @return View
    */
     public function index()
     {
-      return View::make('admin.users.index')->with('users', PortalUsers::all());
+      return View::make('admin.school.index')->with('schools', School::all());
     }
     /**
-     * Page for creating new user
+     * Page for creating new school
      * @return View
      */
     public function create()
     {
-        return View::make('admin.users.create');
+        return View::make('admin.school.create');
     }
     /**
-     * Method for handling users creation
+     * Method for handling schools creation
      * @return  Redirect
      */
     public function postCreate()
     {
         $validator = Validator::make(Request::all(), [
-          "first_name" => "required|min:2",
-          "last_name" => "required|min:2",
-          "email" => "required|email",
-          "password" => "min:5|max:15|confirmed",
+          "school_name" => "required|min:2",
+          "year_founded" => "required",
         ]);
 
         if ($validator->fails()) {
-            return redirect("/users/create")->withErrors($validator->errors())
+            return redirect("/school/create")->withErrors($validator->errors())
                                                      ->withInput();
         }
 
-        $user = new PortalUsers();
+        $school = new School();
 
-        if (Request::has('password')) {
-            $user->password = Hash::make(Request::get('password'));
-        }
+        $school->school_name = Request::get('school_name');
+        $school->year_founded = Request::get('year_founded');
+        $school->city = Request::get('city');
 
-        $user->first_name = Request::get('first_name');
-        $user->last_name = Request::get('last_name');
-        $user->email = Request::get('email');
-        $user->is_admin = Request::get('is_admin');
-
-        if ($user->save()) {
-            return redirect("/users");
+        if ($school->save()) {
+            return redirect("/school/edit/$school->id")->with('successfulMessages',[Lang::get('errors.successfullySchool')]);
         } else {
-            return redirect("/users")->withErrors([Lang::get('errors.somethingWrong')]);
+            return redirect("/school/create")->withErrors([Lang::get('errors.somethingWrong')]);
         }
     }
     /**
      * [edit description]
      * @param  int $id
-     * @return mixed   If user is null, Response is returned else View is returned
+     * @return mixed   If school is null, Response is returned else View is returned
      */
     public function edit(int $id)
     {
-        $user = PortalUsers::find($id);
+        $school = School::find($id);
 
-        if (is_null($user)) {
-            return redirect("/users");
+        if (is_null($school)) {
+            return redirect("/school");
         }
 
-        return View::make('admin.users.edit')->with('users', $user);
+        return View::make('admin.school.edit')->with('schools', $school);
     }
     /**
-     * Editing users information
+     * Editing schools information
      * @param  int $id
      * @return Response edit Users name or get an error
      */
       public function postEdit(int $id)
       {
           $validator = Validator::make(Request::all(), [
-            "first_name" => "required|min:2",
-            "last_name" => "required|min:2",
-            "email" => "required|email",
+              "school_name" => "required|min:2",
+              "year_founded" => "required",
         ]);
 
         if ($validator->fails()) {
-            return redirect("/users/edit/$id")->withErrors($validator->errors())
+            return redirect("/school/edit/$id")->withErrors($validator->errors())
                                                        ->withInput();
         }
 
-          $user = PortalUsers::find($id);
+          $school = School::find($id);
 
-          if (Request::has('password')) {
-              $user->password = Hash::make(Request::get('password'));
-          }
+          $school->school_name = Request::get('school_name');
+          $school->year_founded = Request::get('year_founded');
+          $school->city = Request::get('city');
 
-          $user->first_name = Request::get('first_name');
-          $user->last_name = Request::get('last_name');
-          $user->email = Request::get('email');
-          $user->is_admin = Request::get('is_admin');
-
-          if ($user->save()) {
-              return redirect("/users");
+          if ($school->save()) {
+              return redirect("/school/edit/$school->id")->with('successfulMessages',[Lang::get('errors.successfullySchool')]);
           } else {
-              return redirect("/users")->withErrors([Lang::get('errors.somethingWrong')]);
+              return redirect("/school/edit/$school->id")->withErrors([Lang::get('errors.somethingWrong')]);
           }
       }
     /**
-     * Delete user
+     * Delete school
      * @param  int $id
      * @return Response Remove User or get an error
      */
     public function delete(int $id)
     {
-        $user = PortalUsers::find($id);
+        $school = School::find($id);
 
-        if ($user->delete()) {
-            return redirect("/users");
+        if ($school->delete()) {
+            return redirect("/school");
         } else {
-            return redirect("/users")->withErrors([Lang::get('errors.somethingWrong')]);
+            return redirect("/school")->withErrors([Lang::get('errors.somethingWrong')]);
         }
     }
 }

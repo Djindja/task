@@ -17,7 +17,7 @@ class SchoolTable extends Migration
             $table->increments('id');
             $table->string('school_name');
             $table->date('year_founded');
-            $table->string('city');
+            $table->string('city')->nullable();
 
             $table->timestamps();
         });
