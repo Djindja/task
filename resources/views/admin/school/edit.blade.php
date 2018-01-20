@@ -14,14 +14,14 @@
     <label class="col-md-1">{{Lang::get('titles.school.name')}}<span class="required"> *</span>
     </label>
    <div class="col-md-4">
-      <input name="school_name" class="form-control col-md-4 form-group" type="text" value="{{$schools->school_name}}">
+      <input name="school_name" class="form-control col-md-4 form-group" required="required" type="text" value="{{$schools->school_name}}">
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-1">{{Lang::get('titles.school.year')}}<span class="required"> *</span>
     </label>
     <div class="col-md-4">
-      <input name="year_founded" class="form-control form-group" type="date" value="{{$schools->year_founded}}"/>
+      <input name="year_founded" class="form-control form-group" required="required" type="date" value="{{$schools->year_founded}}"/>
     </div>
   </div>
   <div class="form-group">
