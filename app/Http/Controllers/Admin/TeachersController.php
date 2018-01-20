@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use File;
 use Auth;
 use View;
 use Lang;
-use Hash;
 use Request;
 use Response;
 use Validator;
+use App\Models\School;
 use App\Models\Teacher;
 
 class TeachersController extends Controller
@@ -20,7 +19,19 @@ class TeachersController extends Controller
    */
     public function index()
     {
-      return View::make('admin.teacher.index')->with('teachers', Teacher::all());
+
+        $teachers = Teacher::all();
+
+        if(Request::has('query')) {
+            $query = Request::get('query');
+            $filter = Request::get('first_name');
+
+            $teachers = $teachers->where($filter, "LIKE", "%$query%")->get();
+        } else {
+            $teachers = Teacher::all();
+        }
+
+        return View::make('admin.teacher.index')->with('teachers', $teachers);
     }
     /**
      * Page for creating new teacher
@@ -28,7 +39,7 @@ class TeachersController extends Controller
      */
     public function create()
     {
-        return View::make('admin.teacher.create');
+        return View::make('admin.teacher.create')->with('schools', School::all());
     }
     /**
      * Method for handling teachers creation
@@ -40,7 +51,7 @@ class TeachersController extends Controller
           "first_name" => "required|min:2",
           "last_name" => "required|min:2",
           "birth_date" => "required",
-          // "school" => "required",
+          "school" => "required",
         ]);
 
         if ($validator->fails()) {
@@ -53,7 +64,7 @@ class TeachersController extends Controller
         $teacher->first_name = Request::get('first_name');
         $teacher->last_name = Request::get('last_name');
         $teacher->birth_date = Request::get('birth_date');
-        // $teacher->school_id = Request::get('school');
+        $teacher->school_id = Request::get('school');
 
         if ($teacher->save()) {
             return redirect("/teacher/edit/$teacher->id")->with('successfulMessages',[Lang::get('errors.successfullySchool')]);
@@ -74,7 +85,8 @@ class TeachersController extends Controller
             return redirect("/teacher");
         }
 
-        return View::make('admin.teacher.edit')->with('teachers', $teacher);
+        return View::make('admin.teacher.edit')->with('teachers', $teacher)
+                                               ->with('schools', School::all());
     }
     /**
      * Editing teachers information
@@ -87,7 +99,7 @@ class TeachersController extends Controller
               "first_name" => "required|min:2",
               "last_name" => "required|min:2",
               "birth_date" => "required",
-              // "school" => "required",
+              "school" => "required",
         ]);
 
         if ($validator->fails()) {
@@ -100,7 +112,7 @@ class TeachersController extends Controller
           $teacher->first_name = Request::get('first_name');
           $teacher->last_name = Request::get('last_name');
           $teacher->birth_date = Request::get('birth_date');
-          // $teacher->school_id = Request::get('school');
+          $teacher->school_id = Request::get('school');
 
           if ($teacher->save()) {
               return redirect("/teacher/edit/$teacher->id")->with('successfulMessages',[Lang::get('errors.successfullySchool')]);

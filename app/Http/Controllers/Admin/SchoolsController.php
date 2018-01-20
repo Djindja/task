@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use File;
 use Auth;
 use View;
 use Lang;
-use Hash;
 use Request;
 use Response;
 use Validator;

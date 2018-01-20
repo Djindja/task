@@ -27,8 +27,9 @@ return [
         'first_name' => 'First name',
         'last_name' => 'Last name',
         'birth_date' => 'Date of birth',
-        'school_name' => 'School Name',
+        'school_name' => 'School name',
         'create' => 'Create teacher',
+        'chooseSchool' => 'Choose school',
     ],
 
 ];

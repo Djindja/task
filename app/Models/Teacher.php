@@ -13,7 +13,11 @@ class Teacher extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'birth_date',
+        'first_name', 'last_name', 'birth_date'
+    ];
+
+    protected $with = [
+        'school'
     ];
 
     /**

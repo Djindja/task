@@ -31,6 +31,18 @@
       <input name="birth_date" class="form-control form-group" type="date" value="{{old('birth_date')}}"/>
     </div>
   </div>
+  <div class="form-group">
+    <label class="col-md-1">{{Lang::get('titles.teacher.school_name')}}<span class="required">*</span></label>
+    <div class="col-md-4" style="padding-left: 0; padding-right: 30px;">
+      <select class="form-control" name="school">
+        <option value="">{{Lang::get('titles.teacher.chooseSchool')}}</option>
+        @foreach($schools as $school)
+          <option value="{{$school->id}}">{{$school->school_name}}</option>
+        @endforeach
+      </select>
+    </div>
+  </div>
+  </br>
 
   <div class="col-md-2">
       <button type="submit" class="btn btn-primary btn-md col-md-6">{{Lang::get('titles.submit')}}</button>
