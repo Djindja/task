@@ -26,7 +26,7 @@ class TeachersController extends Controller
             $query = Request::get('query');
             $filter = Request::get('first_name');
 
-            $teachers = $teachers->where($filter, "LIKE", "%$query%")->get();
+            $teachers = $teachers->where($filter, "LIKE", "%$query%");
         } else {
             $teachers = Teacher::all();
         }
