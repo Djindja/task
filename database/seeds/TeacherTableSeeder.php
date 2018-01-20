@@ -16,7 +16,7 @@ class TeacherTableSeeder extends Seeder
         DB::table('teachers')->truncate();
         $faker = \Faker\Factory::create();
 
-        for($i = 0; $i <= 5; $i++) {
+        for($i = 0; $i <= 4; $i++) {
             DB::table('teachers')->insert([
                 "school_id" => rand(0, 2),
                 "first_name" => $faker->firstName,

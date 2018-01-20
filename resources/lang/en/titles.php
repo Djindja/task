@@ -17,4 +17,18 @@ return [
         'city' => 'City',
         'create' => 'Create school',
     ],
+
+    'teacher' => [
+        'title' => 'Teacher',
+        'create' => 'Create teacher',
+        'edit' => 'Edit teacher',
+        'list' => 'List of teachers',
+        'teacher' => 'Teachers',
+        'first_name' => 'First name',
+        'last_name' => 'Last name',
+        'birth_date' => 'Date of birth',
+        'school_name' => 'School Name',
+        'create' => 'Create teacher',
+    ],
+
 ];

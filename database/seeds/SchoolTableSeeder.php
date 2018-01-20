@@ -16,7 +16,7 @@ class SchoolTableSeeder extends Seeder
         DB::table('schools')->truncate();
         $faker = \Faker\Factory::create();
 
-        for($i = 0; $i <= 5; $i++) {
+        for($i = 0; $i <= 4; $i++) {
             DB::table('schools')->insert([
                 "school_name" => $faker->city,
                 "year_founded" => $faker->dateTime(),
