@@ -8,7 +8,6 @@
   <div class="x_panel">
       <form class="form-group col-md-6" method="GET" action="{{url("/teacher")}}">
           <div class="col-md-6">
-            <input name="first_name" class="form-control" type="hidden" value="first_name">
             <input name="query" class="form-control" type="text" value="{{Request::get('query')}}" placeholder="Search...">
           </div>
           <button class="btn btn-default" type="submit">Go!</button>

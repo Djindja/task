@@ -20,13 +20,10 @@ class TeachersController extends Controller
     public function index()
     {
 
-        $teachers = Teacher::all();
-
         if(Request::has('query')) {
             $query = Request::get('query');
-            $filter = Request::get('first_name');
 
-            $teachers = $teachers->where($filter, "LIKE", "%$query%");
+            $teachers = Teacher::where('first_name', "LIKE", "%$query%")->orWhere('last_name', "LIKE", "%$query%")->get();
         } else {
             $teachers = Teacher::all();
         }
